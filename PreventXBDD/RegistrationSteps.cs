@@ -308,11 +308,21 @@ namespace PreventXBDD
             }
         }
 
+       
         [Then(@"I should see an error message")]
         public void ThenIShouldSeeAnErrorMessage()
         {
-            ScenarioContext.Current.Pending();
+            try
+            {
+                IWebElement errorElement = _driver.FindElement(By.CssSelector("div.has-error has-feedback"));
+                Assert.Equals("Please Provide a valid Email Address", errorElement.Text);
+            }
+            catch 
+            {
+            
+            }
         }
+
 
         [AfterScenario]
         public void DisposeWebDriver() 
